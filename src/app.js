@@ -8,9 +8,7 @@ import 'dotenv/config';
 import routes from './routes';
 import socketSever from './socket';
 import Logger from './helpers/Logger';
-import CronService from './database/services/CronService';
-
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 process.env.TZ = 'Africa/Lagos';
 morgan.token('date', () => new Date().toLocaleString());
@@ -28,7 +26,6 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.static('public'));
 app.use(express.static('files'))
 routes(app);
-// CronService.startCron();
 socketSever(httpServer);
 
 httpServer.listen(PORT, () => {

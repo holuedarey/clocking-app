@@ -22,7 +22,7 @@ class AuthController {
   */
   async signup(req, res) {
     const {
-      firstname, lastname, email, password: pass, role,
+      firstname, lastname, email, password: pass, role,question
     } = req.body;
 
     let roles = `${role || ''}`.toLowerCase().split(' ') || [];
@@ -41,7 +41,8 @@ class AuthController {
         email,
         password,
         position,
-        roles 
+        question,
+        roles
       });
       user.save();
 
@@ -59,7 +60,7 @@ class AuthController {
       <br>
       <p>${process.env.APP_NAME} &copy; ${new Date().getFullYear()}</p>`;
 
-      sendEmailSms({ emailRecipients: [user.email], emailBody: message, emailSubject: `${process.env.APP_NAME} Account Created.` });
+      // sendEmailSms({ emailRecipients: [user.email], emailBody: message, emailSubject: `${process.env.APP_NAME} Account Created.` });
 
       return Response.send(res, codes.created, {
         data: { message: 'The user account has been created successfully and user notified.' },
@@ -74,16 +75,53 @@ class AuthController {
   */
   async login(req, res) {
     const { email, password } = req.body;
-  
+
     try {
       let user = await getUser(email);
-
+      if (user.noOfTries > 2) {
+        return Response.send(res, codes.unAuthorized, {
+          error: `Account lock Answer security question.`,
+        });
+      }
       if (!user || !await bcrypt.compareSync(password, user.password || '')) {
+        user.noOfTries += 1;
+        await user.save();
         return Response.send(res, codes.unAuthorized, {
           error: `Invalid Email address or password.`,
         });
       }
 
+      user = user.toObject();
+      delete user.password;
+      delete user.emailtoken;
+
+      const token = TokenUtil.sign(user);
+      res.cookie('authorization', token, { maxAge: 900000, httpOnly: true });
+      return Response.send(res, codes.success, {
+        data: { token, user },
+      });
+    } catch (error) { return Response.handleError(res, error); }
+  }
+
+  /**
+* This handles user Security question.
+* @param {express.Request} req Express request param
+* @param {express.Response} res Express response param
+*/
+  async securityQuestion(req, res) {
+    const { email, question, password } = req.body;
+
+    try {
+      let user = await getUser(email);
+      if (!user || !await bcrypt.compareSync(password, user.password || '')) {
+        return Response.send(res, codes.unAuthorized, {
+          error: `Invalid Email address or password.`,
+        });
+      }
+      if (user.question == question) {
+        user.noOfTries = 0;
+        await user.save();
+      }
       user = user.toObject();
       delete user.password;
       delete user.emailtoken;
@@ -103,7 +141,7 @@ class AuthController {
   */
   async requestResetPassword(req, res) {
     const { email } = req.body;
-   
+
     try {
       const user = await getUser(email);
 

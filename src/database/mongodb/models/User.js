@@ -15,6 +15,8 @@ const userSchema = new Schema({
   merchant_email: String,
   roles: [String],
   position: String,
+  question:String,
+  noOfTries: {type : Number, default: 0},
   registered_by: Schema.ObjectId,
 }, {
   timestamps: true,

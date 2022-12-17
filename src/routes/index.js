@@ -5,15 +5,19 @@ import authRouter from './auth';
 import { authenticated } from '../middlewares/authentication';
 import FileController from '../controllers/FileController';
 import usersRouter from './users';
-import configRouter from './config';
+import cardRouter from './card';
+import socialRouter from './social';
 
 /**
  * Router
  */
 const route = (app) => {
   app.use('/api/v1/users', authenticated, usersRouter);
-  app.use('/api/v1/config', authenticated, configRouter);
   app.use('/api/v1/auth', authRouter);
+  app.use('/api/v1/card', authenticated, cardRouter);
+  app.use('/api/v1/social', authenticated, socialRouter);
+
+
   
   //endpoint to get data from vas transaction
 
