@@ -5,8 +5,7 @@ import authRouter from './auth';
 import { authenticated } from '../middlewares/authentication';
 import FileController from '../controllers/FileController';
 import usersRouter from './users';
-import cardRouter from './card';
-import socialRouter from './social';
+import clockingRouter from './clocking';
 
 /**
  * Router
@@ -14,8 +13,7 @@ import socialRouter from './social';
 const route = (app) => {
   app.use('/api/v1/users', authenticated, usersRouter);
   app.use('/api/v1/auth', authRouter);
-  app.use('/api/v1/card', authenticated, cardRouter);
-  app.use('/api/v1/social', authenticated, socialRouter);
+  app.use('/api/v1/clocking', authenticated, clockingRouter);
 
 
   
@@ -30,15 +28,6 @@ const route = (app) => {
   }));
   app.get('/api/v1', (req, res) => Response.send(res, codes.success, {
     message: 'This is version 1.0.1!',
-  }));
-
-  
-  app.get('/api/v1/response', (req, res) => Response.send(res, codes.success, {
-    message: {data : req.body},
-  }));
-
-  app.get('/api/v1/recive', (req, res) => Response.send(res, codes.success, {
-    message: {data : req.body},
   }));
 
   app.get('*', (req, res) => Response.send(res, codes.notFound, {
