@@ -41,7 +41,6 @@ class AuthController {
         email,
         password,
         position,
-        question,
         roles
       });
       user.save();
