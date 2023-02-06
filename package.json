@@ -15,6 +15,9 @@
     "start:dev": "./node_modules/.bin/babel-watch ./src/app.js",
     "pm2:restart": "./pm2.sh"
   },
+  "engines": {
+    "node": "14.20.1"
+  },
   "dependencies": {
     "axios": "^0.21.1",
     "bcrypt": "^3.0.6",
