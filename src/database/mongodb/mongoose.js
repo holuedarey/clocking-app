@@ -8,7 +8,7 @@
  const mongoConnectionUrl = `mongodb://cluster0-i3it2.mongodb.net:27017/rolphta`;
  
  mongoose.set('useCreateIndex', true);
- mongoose.connect('mongodb+srv://jummie:crNCNKttQkUdyqn9@cluster0.wmexc.mongodb.net/judy?retryWrites=true&w=majority');
+ mongoose.connect('mongodb+srv://jummie:crNCNKttQkUdyqn9@cluster0.wmexc.mongodb.net/clockingapp?retryWrites=true&w=majority');
  
 
  const db = mongoose.connection;

@@ -1,8 +1,8 @@
 {
-  "name": "judyproject",
+  "name": "clokingbackend",
   "version": "1.0.0",
   "main": "app.js",
-  "author": "Kenneth",
+  "author": "Ogunwole Samuel",
   "license": "MIT",
   "private": true,
   "scripts": {

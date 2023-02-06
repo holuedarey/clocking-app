@@ -8,7 +8,7 @@ import 'dotenv/config';
 import routes from './routes';
 import socketSever from './socket';
 import Logger from './helpers/Logger';
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 9000;
 
 process.env.TZ = 'Africa/Lagos';
 morgan.token('date', () => new Date().toLocaleString());
