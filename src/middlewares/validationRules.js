@@ -122,7 +122,7 @@ const socialRules = [
 
 ];
 
-const cardRules = [
+const clockingRules = [
   {
     field: 'site_name',
     rules: 'required',
@@ -147,5 +147,5 @@ const setEmailRules = [
 
 
 export {
-  socialRules, questionRules, registerRules, loginRules, resetPasswordRules, setEmailRules, changePasswordRules,  setRoleRules, cardRules
+  socialRules, questionRules, registerRules, loginRules, resetPasswordRules, setEmailRules, changePasswordRules,  setRoleRules, clockingRules
 };

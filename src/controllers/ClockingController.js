@@ -5,7 +5,7 @@ import express from 'express';
 import Response from '../helpers/Response';
 import codes from '../helpers/statusCodes';
 import { curDate, validateMongoID } from '../helpers/utils';
-import CardServices from '../database/services/ClockingServices';
+import ClockingServices from '../database/services/ClockingServices';
 import Card from '../database/mongodb/models/Clocking';
 
 class ClockingController {
@@ -16,13 +16,13 @@ class ClockingController {
 * @param {express.Response} res Express response param
 */
   async createClocking(req, res) {
-    const { card, expirydate, CCV, cardholdername } = req.body;
+    const { site_name, datclocking_date_time, clocking_purpose, } = req.body;
     const user_id = req.user._id;
     const data = {
-      card, expirydate, CCV, cardholdername, user_id
+      site_name, datclocking_date_time, clocking_purpose, user_id
     };
 
-    const cardy = new CardServices();
+    const cardy = new ClockingServices();
     try {
       const createCard = await cardy.createClocking(data);
 
@@ -48,7 +48,7 @@ class ClockingController {
     page = Number.isNaN(parseInt(page, 10)) ? 1 : parseInt(page, 10);
 
     try {
-      const cards = new CardServices();
+      const cards = new ClockingServices();
       const result = await cards.setID(req.user._id).allCards(page, limit);
 
       Response.send(res, codes.success, {
@@ -74,7 +74,7 @@ class ClockingController {
     page = Number.isNaN(parseInt(page, 10)) ? 1 : parseInt(page, 10);
 
     try {
-      const cards = new CardServices();
+      const cards = new ClockingServices();
       const result = await cards.setUser(req.user._id).allCards(page, limit);
 
       Response.send(res, codes.success, {
@@ -98,7 +98,7 @@ class ClockingController {
     page = Number.isNaN(parseInt(page, 10)) ? 1 : parseInt(page, 10);
 
     try {
-      const cards = new CardServices();
+      const cards = new ClockingServices();
       const result = await cards.setUser(req.user._id).setID(req.params._id).allCards(page, limit);
 
       Response.send(res, codes.success, {
