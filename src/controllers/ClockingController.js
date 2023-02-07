@@ -49,7 +49,7 @@ class ClockingController {
 
     try {
       const cards = new ClockingServices();
-      const result = await cards.setID(req.user._id).allCards(page, limit);
+      const result = await cards.setID(req.user._id).allClockings(page, limit);
 
       Response.send(res, codes.success, {
         data: result,
@@ -74,8 +74,8 @@ class ClockingController {
     page = Number.isNaN(parseInt(page, 10)) ? 1 : parseInt(page, 10);
 
     try {
-      const cards = new ClockingServices();
-      const result = await cards.setUser(req.user._id).allCards(page, limit);
+      const clockings = new ClockingServices();
+      const result = await clockings.setUser(req.user._id).myClockings(page, limit);
 
       Response.send(res, codes.success, {
         data: result,
@@ -98,8 +98,8 @@ class ClockingController {
     page = Number.isNaN(parseInt(page, 10)) ? 1 : parseInt(page, 10);
 
     try {
-      const cards = new ClockingServices();
-      const result = await cards.setUser(req.user._id).setID(req.params._id).allCards(page, limit);
+      const clocking = new ClockingServices();
+      const result = await clocking.setID(req.params._id).viewClocking(page, limit);
 
       Response.send(res, codes.success, {
         data: result,

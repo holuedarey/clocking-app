@@ -10,7 +10,7 @@ class ClockingService {
   }
   setUser(id) {
     if (id) {
-      id =  mongoose.Types.ObjectId(id);
+      id = mongoose.Types.ObjectId(id);
       this.$match.user_id = id;
     }
     return this;
@@ -18,13 +18,13 @@ class ClockingService {
 
   setID(id) {
     if (id) {
-      id =  mongoose.Types.ObjectId(id);
+      id = mongoose.Types.ObjectId(id);
       this.$match._id = id;
     }
     return this;
   }
 
-  async createClocking(data){
+  async createClocking(data) {
     const clocking = new Clocking(data);
     await clocking.save();
     return clocking;
@@ -46,27 +46,46 @@ class ClockingService {
       { $skip: offset },
       { $limit: limit },
     ]);
-    
+
     return clockings;
   }
 
-   /**
-   * This gets all terminals for given filter
-   * @param {Number} page
-   * @param {Number} limit
-   * @param {String} search
-   * @returns {Array} terminals
-   */
-    async myClockings(page = 1, limit = 30) {
-      const offset = (page - 1) * limit;
-      let clockings = await Clocking.aggregate([
-        { $match},
-        { $skip: offset },
-        { $limit: limit },
-      ]);
-      
-      return clockings;
-    }
+  /**
+  * This gets all terminals for given filter
+  * @param {Number} page
+  * @param {Number} limit
+  * @param {String} search
+  * @returns {Array} terminals
+  */
+  async myClockings(page = 1, limit = 30) {
+    const offset = (page - 1) * limit;
+    let clockings = await Clocking.aggregate([
+      { $match },
+      { $skip: offset },
+      { $limit: limit },
+    ]);
+
+    return clockings;
+  }
+
+
+  /**
+* This gets all terminals for given filter
+* @param {Number} page
+* @param {Number} limit
+* @param {String} search
+* @returns {Array} terminals
+*/
+  async viewClocking(page = 1, limit = 30) {
+    const offset = (page - 1) * limit;
+    let clockings = await Clocking.aggregate([
+      { $match },
+      { $skip: offset },
+      { $limit: limit },
+    ]);
+
+    return clockings[0];
+  }
 
 
 }
