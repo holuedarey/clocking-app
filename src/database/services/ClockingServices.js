@@ -60,7 +60,7 @@ class ClockingService {
   async myClockings(page = 1, limit = 30) {
     const offset = (page - 1) * limit;
     let clockings = await Clocking.aggregate([
-      { $match },
+      { $match  : this.$match},
       { $skip: offset },
       { $limit: limit },
     ]);
@@ -79,7 +79,7 @@ class ClockingService {
   async viewClocking(page = 1, limit = 30) {
     const offset = (page - 1) * limit;
     let clockings = await Clocking.aggregate([
-      { $match },
+      { $match : this.$match},
       { $skip: offset },
       { $limit: limit },
     ]);
