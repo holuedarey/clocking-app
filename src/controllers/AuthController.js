@@ -77,14 +77,8 @@ class AuthController {
 
     try {
       let user = await getUser(email);
-      if (user.noOfTries > 2) {
-        return Response.send(res, codes.unAuthorized, {
-          error: `Account lock Answer security question.`,
-        });
-      }
       if (!user || !await bcrypt.compareSync(password, user.password || '')) {
-        user.noOfTries += 1;
-        await user.save();
+
         return Response.send(res, codes.unAuthorized, {
           error: `Invalid Email address or password.`,
         });

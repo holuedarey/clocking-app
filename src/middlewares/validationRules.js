@@ -124,21 +124,16 @@ const socialRules = [
 
 const cardRules = [
   {
-    field: 'card',
+    field: 'site_name',
     rules: 'required',
   },
   {
-    field: 'expirydate',
-    rules: 'required',
-  },
-
-  {
-    field: 'CCV',
+    field: 'clocking_date_time',
     rules: 'required',
   },
 
   {
-    field: 'cardholdername',
+    field: 'clocking_purpose',
     rules: 'required',
   },
 ];

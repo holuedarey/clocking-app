@@ -10,7 +10,7 @@ const { Schema } = mongoose;
 const schema = new Schema({
   site_name : String, 
   clocking_date_time: Date,
-  chcking_purpose: String, 
+  clocking_purpose: String, 
   user_id: ObjectID
 }, {
   timestamps: true,
