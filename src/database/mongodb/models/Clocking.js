@@ -9,7 +9,7 @@ const { Schema } = mongoose;
 
 const schema = new Schema({
   site_name : String, 
-  clocking_date_time: Date,
+  clocking_date_time: {type : Date, default : Date.now() },
   clocking_purpose: String, 
   user_id: ObjectID
 }, {
