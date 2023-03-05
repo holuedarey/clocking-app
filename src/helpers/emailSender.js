@@ -1,5 +1,5 @@
 import axios from "axios";
-
+const nodemailer = require('nodemailer');
 /**
  * Sends email and SMS using Jamila's API
  * @param {Object} payload
@@ -27,63 +27,31 @@ const sendEmailSms = (payload) => {
     throw { message: 'Data must contain emailRecipients or smsRecipients' };
   }
 
-  const options = {
-    'method': 'POST',
-    'url': 'https://api.mailgun.net/v3/mg.mycreditme.com/messages',
-    'headers': {
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic YXBpOmtleS1lMDM1ODM2YzJkMzg5NmY0N2NjYWI4NTI4NjE2MzI2OQ=='
-    },
-    FormData: {
-      'from': 'FalconTrace no-reply@etop.com.ng',
-      'to': payload.emailRecipients,
-      'subject': payload.emailSubject,
-      'html': payload.emailBody,
-      'text': payload.emailBody
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'holudare2076@gmail.com',
+      pass: 'cbedluzntpimhzso'
     }
+  });
+  
+  const mailOptions = {
+    from: 'hello@example.com',
+    to: payload.emailRecipients,
+    subject: payload.emailSubject,
+    text: payload.emailBody,
+    html: payload.emailBody
   };
   
-
-  // axios(options, function (error, response) {
-  //   if (error) throw new Error(error);
-  //   console.log(response.body);
-  // });
-
-  axios(options)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-
-  // var axios = require('axios');
-  // var FormData = require('form-data');
-  // var datas = new FormData();
-  // datas.append('from', 'FalconTrace no-reply@etop.com.ng');
-  // datas.append('to', payload.emailRecipients);
-  // datas.append('subject', payload.emailSubject);
-  // datas.append('html', payload.emailBody);
-
-  // var config:any = {
-  //   method: 'post',
-  //   url: 'https://api.mailgun.net/v3/mg.mycreditme.com/messages',
-  //   headers: { 
-  //     'Authorization': 'Basic YXBpOmtleS1lMDM1ODM2YzJkMzg5NmY0N2NjYWI4NTI4NjE2MzI2OQ==', 
-  //     ...data.getHeaders()
-  //   },
-  //   data : data
-  // };
-
-  // axios(config)
-  // .then(function (response) {
-  //   console.log(JSON.stringify(response.data));
-  // })
-  // .catch(function (error) {
-  //   console.log("erroyr::",error);
-  // });
-
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+   console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+      // do something useful
+    }
+  });
+ 
 
 };
 

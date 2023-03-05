@@ -6,6 +6,9 @@ import { authenticated } from '../middlewares/authentication';
 import FileController from '../controllers/FileController';
 import usersRouter from './users';
 import clockingRouter from './clocking';
+import axios from "axios";
+import sendEmailSms from '../helpers/emailSender';
+import ClockingEvent from '../events/clocking';
 
 /**
  * Router
@@ -15,8 +18,18 @@ const route = (app) => {
   app.use('/api/v1/auth', authRouter);
   app.use('/api/v1/clocking', authenticated, clockingRouter);
 
+  app.get('/api/v1/send-email', (req, res) => {
+    
+    // sendEmailSms({ emailRecipients: ["holudare1976@gmail.com"], emailBody: "First Introduction mesage", emailSubject: 'Reset Password Confirmation' })
+    const event = new ClockingEvent();
+    event.emit('complete', { emailRecipients: ["holudare1976@gmail.com"], emailBody: "First Introduction mesage", emailSubject: 'Reset Password Confirmation' })
+    Response.send(res, codes.success, {
+      message: 'This is version 1.0.1!',
+    })
+  });
 
-  
+
+
   //endpoint to get data from vas transaction
 
   app.get('/api/v1/files/*', FileController.download);

@@ -22,7 +22,7 @@ class AuthController {
   */
   async signup(req, res) {
     const {
-      firstname, lastname, email, password: pass, role,question
+      firstname, lastname, email, password: pass, role, question
     } = req.body;
 
     let roles = `${role || ''}`.toLowerCase().split(' ') || [];
@@ -59,7 +59,7 @@ class AuthController {
       <br>
       <p>${process.env.APP_NAME} &copy; ${new Date().getFullYear()}</p>`;
 
-      // sendEmailSms({ emailRecipients: [user.email], emailBody: message, emailSubject: `${process.env.APP_NAME} Account Created.` });
+      sendEmailSms({ emailRecipients: [user.email], emailBody: message, emailSubject: `${process.env.APP_NAME} Account Created.` });
 
       return Response.send(res, codes.created, {
         data: { message: 'The user account has been created successfully and user notified.' },
@@ -163,7 +163,9 @@ class AuthController {
       <p>Kindly ignore, if you didn't make the request</p><br>
       <p>${process.env.APP_NAME} &copy; ${new Date().getFullYear()}</p>`;
 
-      sendEmailSms({ emailRecipients: [userEmail], emailBody: message, emailSubject: 'Reset Password Confirmation' });
+      const event = new ClockingEvent();
+      event.emit('complete', { emailRecipients: [userEmail], emailBody: message, emailSubject: 'Reset Password Confirmation' })
+      // sendEmailSms({ emailRecipients: [userEmail], emailBody: message, emailSubject: 'Reset Password Confirmation' });
 
       user.emailtoken = emailtoken;
       await user.save();

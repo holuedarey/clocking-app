@@ -7,6 +7,7 @@ import codes from '../helpers/statusCodes';
 import { curDate, validateMongoID } from '../helpers/utils';
 import ClockingServices from '../database/services/ClockingServices';
 import Card from '../database/mongodb/models/Clocking';
+import ClockingEvent from '../events/clocking';
 
 class ClockingController {
 
@@ -25,7 +26,21 @@ class ClockingController {
     const cardy = new ClockingServices();
     try {
       const createCard = await cardy.createClocking(data);
-
+      const event = new ClockingEvent();
+      const message = `
+      <div><img style="height: 35px; display: block; margin: auto" src="${process.env.UI_URL}/assets/img/trackmoney.png"/></div>
+      <p>Hello <b>${user.firstname},</b><p>
+      <p style="margin-bottom: 0">Your account on ${process.env.APP_NAME} has been created. You can login using your email and password.</p>
+      <p style="margin-bottom: 0">Email: <code>${user.email}</code></p>
+      <p style="margin-top: 0">Password: <code>${pass}</code></p>
+      <p><small>You can change your password when you login.</small></p>
+      <a href="${process.env.UI_URL}/login">
+      <button style="background-color:green; color:white; padding: 3px 8px; outline:0">Login Here</button></a>
+      <p style="margin-bottom: 0">You can copy and paste to browser if above link is not clickable.</p>
+      <code>${process.env.UI_URL}/login</code>
+      <br>
+      <p>${process.env.APP_NAME} &copy; ${new Date().getFullYear()}</p>`;
+      event.emit('complete', { emailRecipients: [req.user.email], emailBody: message, emailSubject: 'New Clocking for ' })
       Response.send(res, codes.success, {
         data: createCard,
       });
@@ -64,7 +79,7 @@ class ClockingController {
   * @param {express.Request} req Express request param
   * @param {express.Response} res Express response param
   */
-   async myClocking(req, res) {
+  async myClocking(req, res) {
 
     let {
       page, limit,
