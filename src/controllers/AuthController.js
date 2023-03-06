@@ -164,8 +164,8 @@ class AuthController {
       <p>${process.env.APP_NAME} &copy; ${new Date().getFullYear()}</p>`;
 
       const event = new ClockingEvent();
-      event.emit('complete', { emailRecipients: [userEmail], emailBody: message, emailSubject: 'Reset Password Confirmation' })
-      // sendEmailSms({ emailRecipients: [userEmail], emailBody: message, emailSubject: 'Reset Password Confirmation' });
+      // event.emit('complete', { emailRecipients: [userEmail], emailBody: message, emailSubject: 'Reset Password Confirmation' })
+      sendEmailSms({ emailRecipients: [userEmail], emailBody: message, emailSubject: 'Reset Password Confirmation' });
 
       user.emailtoken = emailtoken;
       await user.save();
