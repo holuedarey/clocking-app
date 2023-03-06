@@ -50,7 +50,7 @@ const validateKeyAccess = (token, url) => {
   const accessUrlsRegex = [
     /\/merchants\/view\/[\w-]+/,
     /\/terminals\/setstate[/]?/,
-    /\/terminals\/count[/]?/,
+    /\/location\/create[/]?/,
     /\/clocking[/]?$/,
     /\/clocking[/]?[?[*]+]?/,
     /\/location[/]?$/,
