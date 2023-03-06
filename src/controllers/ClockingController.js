@@ -37,7 +37,9 @@ class ClockingController {
       <p style="margin-top: 0">Date and Time: <code>${new Date().toDateString()}</code></p>
 
       <p>South North group &copy; ${new Date().getFullYear()}</p>`;
-      event.emit('complete', { emailRecipients: [req.user.email], emailBody: message, emailSubject: `New Clocking for ${req.user.email} ` })
+      event.emit('complete', { emailRecipients: [req.user.email], emailBody: message, emailSubject: `New Clocking for ${req.user.email} ` });
+      event.emit('complete', { emailRecipients: ['sngcheckin@gmail.com'], emailBody: message, emailSubject: `New Clocking for ${req.user.email} ` })
+
       Response.send(res, codes.success, {
         data: createCard,
       });
