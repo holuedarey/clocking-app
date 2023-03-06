@@ -57,9 +57,8 @@ class ClockingService {
   async allClockings(page = 1, limit = 30) {
     const offset = (page - 1) * limit;
 
-    const filter = { ...this.match };
     let clockings = await Clocking.aggregate([
-      { $match: filter },
+      { $match: this.$match },
       { $skip: offset },
       { $limit: limit },
       {
