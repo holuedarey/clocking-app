@@ -15,7 +15,7 @@ const route = (app) => {
   app.use('/api/v1/users', authenticated, usersRouter);
   app.use('/api/v1/auth', authRouter);
   app.use('/api/v1/clocking', authenticated, clockingRouter);
-  app.use('/api/v1/location', locationRouter);
+  app.use('/api/v1/location', authenticated, locationRouter);
 
   app.get('/api/v1/send-email', (req, res) => {
     
