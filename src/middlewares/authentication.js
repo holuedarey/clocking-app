@@ -52,6 +52,7 @@ const validateKeyAccess = (token, url) => {
     /\/terminals\/setstate[/]?/,
     /\/terminals\/count[/]?/,
     /\/clocking[/]?$/,
+    /\/clocking[/]?[?[*]+]?/,
     /\/terminals[/]?[?[*]+]?/,
     /\/merchants[/]?$/,
     /\/merchants[/]?[?[*]+]?/,
