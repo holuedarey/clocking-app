@@ -154,14 +154,11 @@ class AuthController {
 
       const emailtoken = Math.random().toString(15).substring(2);
       const message = `<b>Hello ${user.firstname}</b><br>
-      <p>You requested to reset your password on ${process.env.APP_NAME}.</p>
-      <p>Click on the link below to reset your password</p>
-      <a href="${process.env.UI_URL}/auth/verify?email=${email}&token=${emailtoken}">
-      <button style="background-color:green; color:white; padding: 3px 8px; outline:0">Reset Password</button></a>
-      <p>You can copy and paste to browser.</p>
-      <code>${process.env.UI_URL}/auth/verify?email=${email}&token=${emailtoken}</code>
+      <p>You requested to reset your password on South North Group.</p>
+      <p>Your reset Token is:</p>
+      <code>Token: ${emailtoken}</code>
       <p>Kindly ignore, if you didn't make the request</p><br>
-      <p>${process.env.APP_NAME} &copy; ${new Date().getFullYear()}</p>`;
+      <p>South North Group &copy; ${new Date().getFullYear()}</p>`;
 
       // const event = new ClockingEvent();
       // event.emit('complete', { emailRecipients: [userEmail], emailBody: message, emailSubject: 'Reset Password Confirmation' })
