@@ -147,7 +147,7 @@ const setEmailRules = [
 
 const setLocationRules = [
   {
-    field: 'email',
+    field: 'name',
     rules: 'required',
   },
 ];
