@@ -29,11 +29,11 @@ class ClockingService {
     if (start) {
       this.$match['createdAt'] = {
         $gte: moment(start, "YYYY-MM-DD")
-          // .tz(process.env.TZ)
+          .tz('Europe/London')
           .startOf(range)
           .toDate(),
         $lte: moment(end || start, "YYYY-MM-DD")
-          // .tz(process.env.TZ)
+          .tz('Europe/London')
           .endOf(range)
           .toDate(),
       };
