@@ -62,20 +62,6 @@ class LocationService {
       { $match: this.$match },
       { $skip: offset },
       { $limit: limit },
-      {
-        $lookup:
-        {
-          from: "users",
-          localField: "user_id",
-          foreignField: "_id",
-          as: "user"
-        }
-      },
-      {
-        $unwind :{
-          'path': '$user'
-        }
-      }
     ]);
 
     return Locations;
