@@ -18,6 +18,7 @@ class ClockingController {
 */
   async createClocking(req, res) {
     const { site_name, datclocking_date_time, clocking_purpose, } = req.body;
+    const user = req.user;
     const user_id = req.user._id;
     const data = {
       site_name, datclocking_date_time, clocking_purpose, user_id
@@ -28,18 +29,14 @@ class ClockingController {
       const createCard = await cardy.createClocking(data);
       const event = new ClockingEvent();
       const message = `
-      <div><img style="height: 35px; display: block; margin: auto" src="${process.env.UI_URL}/assets/img/trackmoney.png"/></div>
+      <div><img style="height: 35px; display: block; margin: auto" src="https://southnorthgroup.com/wp-content/uploads/2022/12/ico.png"/></div>
       <p>Hello <b>${user.firstname},</b><p>
-      <p style="margin-bottom: 0">Your account on ${process.env.APP_NAME} has been created. You can login using your email and password.</p>
-      <p style="margin-bottom: 0">Email: <code>${user.email}</code></p>
-      <p style="margin-top: 0">Password: <code>${pass}</code></p>
-      <p><small>You can change your password when you login.</small></p>
-      <a href="${process.env.UI_URL}/login">
-      <button style="background-color:green; color:white; padding: 3px 8px; outline:0">Login Here</button></a>
-      <p style="margin-bottom: 0">You can copy and paste to browser if above link is not clickable.</p>
-      <code>${process.env.UI_URL}/login</code>
-      <br>
-      <p>${process.env.APP_NAME} &copy; ${new Date().getFullYear()}</p>`;
+      <p style="margin-bottom: 0">New Clocking on South north Group.</p>
+      <p style="margin-bottom: 0">Location: <code>${site_name}</code></p>
+      <p style="margin-top: 0">Purppose: <code>${clocking_purpose}</code></p>
+      <p style="margin-top: 0">Date and Time: <code>${datclocking_date_time}</code></p>
+
+      <p>South North group &copy; ${new Date().getFullYear()}</p>`;
       event.emit('complete', { emailRecipients: [req.user.email], emailBody: message, emailSubject: `New Clocking for ${req.user.email} ` })
       Response.send(res, codes.success, {
         data: createCard,

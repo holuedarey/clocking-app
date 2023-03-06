@@ -26,7 +26,7 @@ class ClockingService {
 
   setDate(start, end, range = "d") {
     if (start) {
-      this.$match[transMod.getField("transaction_date")] = {
+      this.$match['createdAt'] = {
         $gte: moment(start, "YYYY-MM-DD")
           // .tz(process.env.TZ)
           .startOf(range)
