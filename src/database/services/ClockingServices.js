@@ -45,6 +45,15 @@ class ClockingService {
       { $match: filter },
       { $skip: offset },
       { $limit: limit },
+      {
+        $lookup:
+        {
+          from: "users",
+          localField: "user_id",
+          foreignField: "_id",
+          as: "user"
+        }
+      },
     ]);
 
     return clockings;
