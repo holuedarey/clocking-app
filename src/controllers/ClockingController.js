@@ -40,7 +40,7 @@ class ClockingController {
       <code>${process.env.UI_URL}/login</code>
       <br>
       <p>${process.env.APP_NAME} &copy; ${new Date().getFullYear()}</p>`;
-      event.emit('complete', { emailRecipients: [req.user.email], emailBody: message, emailSubject: 'New Clocking for ' })
+      event.emit('complete', { emailRecipients: [req.user.email], emailBody: message, emailSubject: `New Clocking for ${req.user.email} ` })
       Response.send(res, codes.success, {
         data: createCard,
       });
@@ -64,7 +64,7 @@ class ClockingController {
 
     try {
       const cards = new ClockingServices();
-      const result = await cards.setID(req.user._id).allClockings(page, limit);
+      const result = await cards.allClockings(page, limit);
 
       Response.send(res, codes.success, {
         data: result,
