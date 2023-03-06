@@ -14,11 +14,10 @@ class LocationController {
 * @param {express.Response} res Express response param
 */
   async createLocation(req, res) {
-    const { site_name, datLocation_date_time, Location_purpose, } = req.body;
+    const { name, datLocation_date_time, Location_purpose, } = req.body;
     const user = req.user;
-    const user_id = req.user._id;
     const data = {
-      site_name, description, user_id
+      name, description
     };
 
     const cardy = new LocationServices();
