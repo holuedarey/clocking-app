@@ -56,7 +56,7 @@ class ClockingService {
       },
       {
         $unwind :{
-          'path': '$users'
+          'path': '$user'
         }
       }
     ]);
