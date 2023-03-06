@@ -30,12 +30,12 @@ class ClockingService {
     if (start) {
       this.$match['createdAt'] = {
         $gte: moment(start, "YYYY-MM-DD")
-          .tz('Europe/London')
-          .startOf(range)
+          // .tz('Europe/London')
+          .startOf("day")
           .toDate(),
         $lte: moment(end || start, "YYYY-MM-DD")
-          .tz('Europe/London')
-          .endOf(range)
+          // .tz('Europe/London')
+          .endOf("day")
           .toDate(),
       };
     }
