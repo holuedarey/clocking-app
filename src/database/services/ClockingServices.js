@@ -24,6 +24,22 @@ class ClockingService {
     return this;
   }
 
+  setDate(start, end, range = "d") {
+    if (start) {
+      this.$match[transMod.getField("transaction_date")] = {
+        $gte: moment(start, "YYYY-MM-DD")
+          // .tz(process.env.TZ)
+          .startOf(range)
+          .toDate(),
+        $lte: moment(end || start, "YYYY-MM-DD")
+          // .tz(process.env.TZ)
+          .endOf(range)
+          .toDate(),
+      };
+    }
+    return this;
+  }
+
   async createClocking(data) {
     const clocking = new Clocking(data);
     await clocking.save();

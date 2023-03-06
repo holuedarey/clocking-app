@@ -56,7 +56,7 @@ class ClockingController {
   async allClocking(req, res) {
 
     let {
-      page, limit,
+      page, limit, startdate, enddate
     } = req.query;
 
     limit = Number.isNaN(parseInt(limit, 10)) ? 30 : parseInt(limit, 10);
@@ -64,7 +64,7 @@ class ClockingController {
 
     try {
       const cards = new ClockingServices();
-      const result = await cards.allClockings(page, limit);
+      const result = await cards.setDate(startdate, enddate).allClockings(page, limit);
 
       Response.send(res, codes.success, {
         data: result,
