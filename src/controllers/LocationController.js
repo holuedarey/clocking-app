@@ -17,7 +17,7 @@ class LocationController {
     const { name, datLocation_date_time, Location_purpose, } = req.body;
     const user = req.user;
     const data = {
-      name, description
+      name,
     };
 
     const cardy = new LocationServices();
