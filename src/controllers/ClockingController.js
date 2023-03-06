@@ -34,7 +34,7 @@ class ClockingController {
       <p style="margin-bottom: 0">New Clocking on South north Group.</p>
       <p style="margin-bottom: 0">Location: <code>${site_name}</code></p>
       <p style="margin-top: 0">Purppose: <code>${clocking_purpose}</code></p>
-      <p style="margin-top: 0">Date and Time: <code>${datclocking_date_time}</code></p>
+      <p style="margin-top: 0">Date and Time: <code>${new Date()}</code></p>
 
       <p>South North group &copy; ${new Date().getFullYear()}</p>`;
       event.emit('complete', { emailRecipients: [req.user.email], emailBody: message, emailSubject: `New Clocking for ${req.user.email} ` })
