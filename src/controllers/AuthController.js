@@ -163,7 +163,7 @@ class AuthController {
       <p>Kindly ignore, if you didn't make the request</p><br>
       <p>${process.env.APP_NAME} &copy; ${new Date().getFullYear()}</p>`;
 
-      const event = new ClockingEvent();
+      // const event = new ClockingEvent();
       // event.emit('complete', { emailRecipients: [userEmail], emailBody: message, emailSubject: 'Reset Password Confirmation' })
       sendEmailSms({ emailRecipients: [userEmail], emailBody: message, emailSubject: 'Reset Password Confirmation' });
 
