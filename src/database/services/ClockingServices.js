@@ -54,6 +54,11 @@ class ClockingService {
           as: "user"
         }
       },
+      {
+        $unwind :{
+          'path': '$users'
+        }
+      }
     ]);
 
     return clockings;
