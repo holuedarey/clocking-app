@@ -145,7 +145,13 @@ const setEmailRules = [
   },
 ];
 
+const setLocationRules = [
+  {
+    field: 'email',
+    rules: 'required',
+  },
+];
 
 export {
-  socialRules, questionRules, registerRules, loginRules, resetPasswordRules, setEmailRules, changePasswordRules,  setRoleRules, clockingRules
+  socialRules, questionRules, registerRules, loginRules, resetPasswordRules, setEmailRules, changePasswordRules,  setRoleRules, clockingRules, setLocationRules
 };

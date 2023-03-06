@@ -6,9 +6,7 @@ import { authenticated } from '../middlewares/authentication';
 import FileController from '../controllers/FileController';
 import usersRouter from './users';
 import clockingRouter from './clocking';
-import axios from "axios";
-import sendEmailSms from '../helpers/emailSender';
-import ClockingEvent from '../events/clocking';
+import locationRouter from './location';
 
 /**
  * Router
@@ -17,6 +15,7 @@ const route = (app) => {
   app.use('/api/v1/users', authenticated, usersRouter);
   app.use('/api/v1/auth', authRouter);
   app.use('/api/v1/clocking', authenticated, clockingRouter);
+  app.use('/api/v1/location', authenticated, locationRouter);
 
   app.get('/api/v1/send-email', (req, res) => {
     
