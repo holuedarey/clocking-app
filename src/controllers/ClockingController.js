@@ -20,9 +20,8 @@ class ClockingController {
     const { site_name, clocking_date_time, clocking_purpose, } = req.body;
     const user = req.user;
     const user_id = req.user._id;
-    const clocking_date_time = new Date().toDateString();
     const data = {
-      site_name, datclocking_date_time, clocking_purpose, user_id
+      site_name, clocking_date_time, clocking_purpose, user_id
     };
 
     const cardy = new ClockingServices();
