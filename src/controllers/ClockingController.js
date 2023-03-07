@@ -17,9 +17,10 @@ class ClockingController {
 * @param {express.Response} res Express response param
 */
   async createClocking(req, res) {
-    const { site_name, datclocking_date_time, clocking_purpose, } = req.body;
+    const { site_name, clocking_date_time, clocking_purpose, } = req.body;
     const user = req.user;
     const user_id = req.user._id;
+    const clocking_date_time = new Date().toDateString();
     const data = {
       site_name, datclocking_date_time, clocking_purpose, user_id
     };
