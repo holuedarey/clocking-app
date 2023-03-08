@@ -60,6 +60,7 @@ class LocationService {
 
     let Locations = await Location.aggregate([
       { $match: this.$match },
+      { $sort: { name:  1 } },
       { $skip: offset },
       { $limit: limit },
     ]);

@@ -60,6 +60,7 @@ class ClockingService {
 
     let clockings = await Clocking.aggregate([
       { $match: this.$match },
+      { $sort: { _id: -1 } },
       { $skip: offset },
       { $limit: limit },
       {
@@ -92,6 +93,7 @@ class ClockingService {
     const offset = (page - 1) * limit;
     let clockings = await Clocking.aggregate([
       { $match  : this.$match},
+      { $sort: { _id: -1 } },
       { $skip: offset },
       { $limit: limit },
     ]);
