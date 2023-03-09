@@ -30,13 +30,13 @@ const sendEmailSms = (payload) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'holudare2076@gmail.com',
-      pass: 'cbedluzntpimhzso'
+      user: 'sngcheckin@gmail.com',
+      pass: 'nzouayykfdjlirwe'
     }
   });
   
   const mailOptions = {
-    from: 'hello@example.com',
+    from: 'hello@Southnorthgroup.com',
     to: payload.emailRecipients,
     subject: payload.emailSubject,
     text: payload.emailBody,
