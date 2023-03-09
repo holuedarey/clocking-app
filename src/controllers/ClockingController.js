@@ -4,7 +4,7 @@
 import express from 'express';
 import Response from '../helpers/Response';
 import codes from '../helpers/statusCodes';
-import { curDate, validateMongoID } from '../helpers/utils';
+import { curDate, curDateTimeFormat, validateMongoID } from '../helpers/utils';
 import ClockingServices from '../database/services/ClockingServices';
 import Card from '../database/mongodb/models/Clocking';
 import ClockingEvent from '../events/clocking';
@@ -89,7 +89,12 @@ class ClockingController {
 
     try {
       const clockings = new ClockingServices();
-      const result = await clockings.setUser(req.user._id).myClockings(page, limit);
+      let result = await clockings.setUser(req.user._id).myClockings(page, limit);
+      result.map(el => {
+        el['clocking_date_time'] = curDateTimeFormat(el.clocking_date_time);
+        return el;
+      })
+
 
       Response.send(res, codes.success, {
         data: result,

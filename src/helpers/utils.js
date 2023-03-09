@@ -14,6 +14,10 @@ const curDate = (sep = '-') => {
         + sep + `${today.getDate()}`.padStart(2, 0);
 };
 
+const curDateTimeFormat = (date, sep = '-') => {
+  const today = new Date(date);
+  return `${today.toDateString()}  : ${date.toLocaleTimeString()}`
+};
 /**
  * Validates a date
  * @param {String} date - Date String
@@ -94,5 +98,5 @@ const hasAdminRole = user => hasRole(user, 'admin') || hasRole(user, 'super');
 export {
   curDate, validateDate, getRegExp, validateEmail,
   validateMongoID,validateFile, arraysEqual, hasRole, hasAdminRole, checkNumber,
-  countUnique, arraysNoCaseEqual,
+  countUnique, arraysNoCaseEqual, curDateTimeFormat
 };
