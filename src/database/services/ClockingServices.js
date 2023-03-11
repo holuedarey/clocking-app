@@ -82,7 +82,10 @@ class ClockingService {
       { $match: this.$match },
       {$group: {'_id': 0, 'count': { '$sum': 1  } } }
     ]);
-    return clockings['count'] = count[0];
+    return {
+      "row" : clockings,
+      "total" : count[0].count || 0
+    };
   }
 
   /**
