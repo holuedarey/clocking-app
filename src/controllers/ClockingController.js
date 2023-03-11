@@ -65,10 +65,10 @@ class ClockingController {
       const cards = new ClockingServices();
       let result = await cards.setDate(startdate, enddate).allClockings(page, limit);
       console.log("result", result['row']);
-      // result['row'].map(el => {
-      //   el['clocking_date_time'] = curDateTimeFormat(el.clocking_date_time);
-      //   return el;
-      // })
+      result['row'].map(el => {
+        el['clocking_date_time'] = curDateTimeFormat(el.clocking_date_time);
+        return el;
+      })
       Response.send(res, codes.success, {
         data: result,
       });
