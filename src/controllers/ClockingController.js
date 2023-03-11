@@ -58,12 +58,13 @@ class ClockingController {
       page, limit, startdate, enddate
     } = req.query;
 
-    limit = Number.isNaN(parseInt(limit, 10)) ? 30 : parseInt(limit, 10);
+    limit = Number.isNaN(parseInt(limit, 10)) ? 50 : parseInt(limit, 10);
     page = Number.isNaN(parseInt(page, 10)) ? 1 : parseInt(page, 10);
 
     try {
       const cards = new ClockingServices();
       let result = await cards.setDate(startdate, enddate).allClockings(page, limit);
+      console.log("result", result);
       result['row'].map(el => {
         el['clocking_date_time'] = curDateTimeFormat(el.clocking_date_time);
         return el;
