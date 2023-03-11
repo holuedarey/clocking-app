@@ -78,8 +78,11 @@ class ClockingService {
         }
       }
     ]);
-
-    return clockings;
+    const count = await await Clocking.aggregate([
+      { $match: this.$match },
+      {$group : {$sum : 1}}
+    ]);
+    return clockings['count'] = count[0];
   }
 
   /**
