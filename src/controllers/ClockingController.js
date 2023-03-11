@@ -64,7 +64,7 @@ class ClockingController {
     try {
       const cards = new ClockingServices();
       let result = await cards.setDate(startdate, enddate).allClockings(page, limit);
-      result.map(el => {
+      result.row.map(el => {
         el['clocking_date_time'] = curDateTimeFormat(el.clocking_date_time);
         return el;
       })
