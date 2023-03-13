@@ -10,8 +10,8 @@ import { merchantEmailRules, setRoleRules } from '../middlewares/validationRules
  */
 const usersRouter = express.Router();
 
-usersRouter.get('/', isAdmin('super'), UserController.getUsers);
-usersRouter.patch('/', isAdmin('super'), validateInputs2(setRoleRules), UserController.setUserRole);
-usersRouter.delete('/:id', isAdmin('super'), UserController.deleteUser);
+usersRouter.get('/', UserController.getUsers);
+usersRouter.patch('/',  validateInputs2(setRoleRules), UserController.setUserRole);
+usersRouter.delete('/:id',  UserController.deleteUser);
 
 export default usersRouter;
