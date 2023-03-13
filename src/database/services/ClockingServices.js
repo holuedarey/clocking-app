@@ -89,6 +89,38 @@ class ClockingService {
     };
   }
 
+
+
+  /**
+   * This gets all terminals for given filter
+   * @param {Number} page
+   * @param {Number} limit
+   * @param {String} search
+   * @returns {Array} terminals
+   */
+   async downloadClockings() {
+    
+    let clockings = await Clocking.aggregate([
+      { $match: this.$match },
+      { $sort: { _id: -1 } },
+      {
+        $lookup:
+        {
+          from: "users",
+          localField: "user_id",
+          foreignField: "_id",
+          as: "user"
+        }
+      },
+      {
+        $unwind :{
+          'path': '$user'
+        }
+      }
+    ]);
+    return clockings;
+  }
+
   /**
   * This gets all terminals for given filter
   * @param {Number} page

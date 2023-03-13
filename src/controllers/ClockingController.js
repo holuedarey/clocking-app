@@ -95,7 +95,7 @@ class ClockingController {
           }
         }
         const user = await User.findOne(userMatch);
-        if(user) userId = user._id;
+        if (user) userId = user._id;
       }
       const cards = new ClockingServices();
       let result = await cards.setDate(startdate, enddate).setUser(userId).allClockings(page, limit);
@@ -109,6 +109,66 @@ class ClockingController {
     } catch (error) { Response.handleError(res, error); }
   }
 
+
+
+
+  /**
+  * This handles getting transaction history.
+  * @param {express.Request} req Express request param
+  * @param {express.Response} res Express response param
+  */
+  async downloadClocking(req, res) {
+
+    let {
+      page, limit, startdate, enddate, search
+    } = req.query;
+
+    try {
+      let userMatch = {};
+      let userId = null;
+      if (search) {
+
+        const getSObj = (key) => {
+          const obj = {};
+          obj[key] = { $regex: getRegExp(search.toString()) };
+          return obj;
+        };
+
+        if (search) {
+          const serachTerm = search.split(" ");
+          if (serachTerm.length > 1) {
+            userMatch = {
+              $or: [{
+                "firstname": getRegExp(serachTerm[0].toString()),
+                "lastname": getRegExp(serachTerm[1].toString()),
+              }, {
+                "firstname": getRegExp(serachTerm[1].toString()),
+                "lastname": getRegExp(serachTerm[0].toString()),
+              }]
+            };
+          } else {
+            const $or = [];
+            $or.push(getSObj("firstname"));
+            $or.push(getSObj("lastname"));
+            $or.push(getSObj("phoneNumber"));
+            $or.push(getSObj("email"));
+            userMatch.$or = $or;
+          }
+        }
+        const user = await User.findOne(userMatch);
+        if (user) userId = user._id;
+      }
+      const cards = new ClockingServices();
+      let result = await cards.setDate(startdate, enddate).setUser(userId).downloadClockings(page, limit);
+      result['row'].map(el => {
+        el['clocking_date_time'] = curDateTimeFormat(el.clocking_date_time);
+        return el;
+      })
+      Response.send(res, codes.success, {
+        data: result,
+      });
+    } catch (error) { Response.handleError(res, error); }
+  }
 
 
   /**

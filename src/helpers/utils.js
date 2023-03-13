@@ -16,7 +16,7 @@ const curDate = (sep = '-') => {
 
 const curDateTimeFormat = (date, sep = '-') => {
   const today = new Date(date);
-  return `${today.toDateString()}  : ${date.toLocaleTimeString()}`
+  return `${today.toDateString()}  : ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`
 };
 /**
  * Validates a date
