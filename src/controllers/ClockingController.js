@@ -4,10 +4,11 @@
 import express from 'express';
 import Response from '../helpers/Response';
 import codes from '../helpers/statusCodes';
-import { curDate, curDateTimeFormat, validateMongoID } from '../helpers/utils';
+import { curDate, curDateTimeFormat, getRegExp, validateMongoID } from '../helpers/utils';
 import ClockingServices from '../database/services/ClockingServices';
 import Card from '../database/mongodb/models/Clocking';
 import ClockingEvent from '../events/clocking';
+import User from '../database/mongodb/models/User';
 
 class ClockingController {
 
@@ -55,16 +56,49 @@ class ClockingController {
   async allClocking(req, res) {
 
     let {
-      page, limit, startdate, enddate
+      page, limit, startdate, enddate, search
     } = req.query;
 
     limit = Number.isNaN(parseInt(limit, 10)) ? 50 : parseInt(limit, 10);
     page = Number.isNaN(parseInt(page, 10)) ? 1 : parseInt(page, 10);
 
     try {
+      let userMatch = {};
+      let userId = null;
+      if (search) {
+
+        const getSObj = (key) => {
+          const obj = {};
+          obj[key] = { $regex: getRegExp(search.toString()) };
+          return obj;
+        };
+
+        if (search) {
+          const serachTerm = search.split(" ");
+          if (serachTerm.length > 1) {
+            userMatch = {
+              $or: [{
+                "firstname": getRegExp(serachTerm[0].toString()),
+                "lastname": getRegExp(serachTerm[1].toString()),
+              }, {
+                "firstname": getRegExp(serachTerm[1].toString()),
+                "lastname": getRegExp(serachTerm[0].toString()),
+              }]
+            };
+          } else {
+            const $or = [];
+            $or.push(getSObj("firstname"));
+            $or.push(getSObj("lastname"));
+            $or.push(getSObj("phoneNumber"));
+            $or.push(getSObj("email"));
+            userMatch.$or = $or;
+          }
+        }
+        const user = await User.findOne(userMatch);
+        if(user) userId = user._id;
+      }
       const cards = new ClockingServices();
-      let result = await cards.setDate(startdate, enddate).allClockings(page, limit);
-      console.log("result", result['row']);
+      let result = await cards.setDate(startdate, enddate).setUser(userId).allClockings(page, limit);
       result['row'].map(el => {
         el['clocking_date_time'] = curDateTimeFormat(el.clocking_date_time);
         return el;

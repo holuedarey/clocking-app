@@ -42,23 +42,7 @@ class ClockingService {
     return this;
   }
 
-  setSearch(search) {
-    const getSObj = (key) => {
-      const obj = {};
-      if (checkNumber(search)) obj[key] = { $eq: parseInt(search, 10) };
-      else obj[key] = { $regex: getRegExp(search.toString()) };
-      return obj;
-    };
 
-    if (search) {
-      const $or = [];
-      $or.push(getSObj("firstname"));
-      $or.push(getSObj("lastname"));
-
-      this.$match.$or = $or;
-    }
-    return this;
-  }
   async createClocking(data) {
     const clocking = new Clocking(data);
     await clocking.save();

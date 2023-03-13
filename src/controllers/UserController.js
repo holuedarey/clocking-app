@@ -14,7 +14,7 @@ class UserController {
   async getUsers(req, res) {
     let { page, limit } = req.query;
 
-    limit = Number.isNaN(parseInt(limit, 10)) ? 30 : parseInt(limit, 10);
+    limit = Number.isNaN(parseInt(limit, 10)) ? 50 : parseInt(limit, 10);
     page = Number.isNaN(parseInt(page, 10)) ? 1 : parseInt(page, 10);
 
     const offset = (page - 1) * limit;

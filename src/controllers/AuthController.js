@@ -22,7 +22,7 @@ class AuthController {
   */
   async signup(req, res) {
     const {
-      firstname, lastname, email, password: pass, role, question
+      firstname, lastname, email, password: pass, role, phoneNumber
     } = req.body;
 
     let roles = `${role || ''}`.toLowerCase().split(' ') || [];
@@ -39,6 +39,7 @@ class AuthController {
         firstname,
         lastname,
         email,
+        phoneNumber,
         password,
         position,
         roles

@@ -13,6 +13,7 @@ const userSchema = new Schema({
   emailtoken: String,
   roles: [String],
   position: String,
+  phoneNumber: String
 }, {
   timestamps: true,
 });

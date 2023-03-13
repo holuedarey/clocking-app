@@ -1,8 +1,6 @@
 import express from 'express';
 import validateInputs2 from 'json-request-validator';
 import UserController from '../controllers/UserController';
-import { isAdmin } from '../middlewares/authentication';
-import validateInputs from '../middlewares/validateInputs';
 import { merchantEmailRules, setRoleRules } from '../middlewares/validationRules';
 
 /**
