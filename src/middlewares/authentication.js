@@ -45,7 +45,6 @@ const validateKeyAccess = (token, url) => {
   const accessUrls = [
     '/merchants/view/',
     '/merchants/view',
-    '/clocking/download',
   ];
 
   const accessUrlsRegex = [
@@ -54,10 +53,10 @@ const validateKeyAccess = (token, url) => {
     /\/location\/create[/]?/,
     /\/clocking[/]?$/,
     /\/clocking[/]?[?[*]+]?/,
-    /\/clocking[/]?[?[*]+]?/,
+    /\/clocking\/download[/]?[?[*]+]?/,
     /\/users[/]?$/,
     /\/users[/]?[?[*]+]?/,
-    /\/location\/download[/]?$/,
+    /\/location[/]?$/,
     /\/location[/]?[?[*]+]?/,
     /\/terminals[/]?[?[*]+]?/,
     /\/merchants[/]?$/,
