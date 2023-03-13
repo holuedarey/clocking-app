@@ -160,7 +160,7 @@ class ClockingController {
       }
       const cards = new ClockingServices();
       let result = await cards.setDate(startdate, enddate).setUser(userId).downloadClockings(page, limit);
-      result['row'].map(el => {
+      result.map(el => {
         el['clocking_date_time'] = curDateTimeFormat(el.clocking_date_time);
         return el;
       })
