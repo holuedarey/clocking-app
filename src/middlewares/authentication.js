@@ -45,6 +45,7 @@ const validateKeyAccess = (token, url) => {
   const accessUrls = [
     '/merchants/view/',
     '/merchants/view',
+    '/clocking/download',
   ];
 
   const accessUrlsRegex = [
