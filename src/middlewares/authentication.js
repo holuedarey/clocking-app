@@ -53,6 +53,8 @@ const validateKeyAccess = (token, url) => {
     /\/location\/create[/]?/,
     /\/clocking[/]?$/,
     /\/clocking[/]?[?[*]+]?/,
+    /\/users[/]?$/,
+    /\/users[/]?[?[*]+]?/,
     /\/location[/]?$/,
     /\/location[/]?[?[*]+]?/,
     /\/terminals[/]?[?[*]+]?/,
