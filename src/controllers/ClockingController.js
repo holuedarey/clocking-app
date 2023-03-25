@@ -94,8 +94,9 @@ class ClockingController {
             userMatch.$or = $or;
           }
         }
-        const user = await User.findOne(userMatch);
-        if (user) userId = user._id;
+        const user = await User.find(userMatch);
+
+        if (user) userId = user.map(u => u._id);
       }
       const cards = new ClockingServices();
       let result = await cards.setDate(startdate, enddate).setUser(userId).allClockings(page, limit);

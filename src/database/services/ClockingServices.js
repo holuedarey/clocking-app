@@ -10,10 +10,20 @@ class ClockingService {
     this.$limit = 50;
     this.$skip = 0;
   }
-  setUser(id) {
+  setUserd(id) {
     if (id) {
       id = mongoose.Types.ObjectId(id);
       this.$match.user_id = id;
+    }
+    return this;
+  }
+
+  setUser(ids) {
+    if (ids) {
+      if (!Array.isArray(ids)) ids = [ids];
+      ids = ids.map((id) => mongoose.Types.ObjectId(id));
+
+      this.$match.user_id = { $in: ids };
     }
     return this;
   }
@@ -85,7 +95,7 @@ class ClockingService {
     ]);
     return {
       "row" : clockings,
-      "total" : count[0].count || 0
+      "total" : count.length ? count[0].count : 0 || 0
     };
   }
 
