@@ -16,6 +16,6 @@ clockingRouter.route('/download').get(ClockingController.downloadClocking);
 clockingRouter.route('/view/:_id').get(ClockingController.viewOne);
 clockingRouter.route('/create').post(trimInputs, validateInputs(clockingRules), ClockingController.createClocking);
 clockingRouter.route('/my_clocking/').get(ClockingController.myClocking);
-clockingRouter.route('/terms/').get(AuthController.acceptTerms);
+clockingRouter.route('/terms/').post(AuthController.acceptTerms);
 
 export default clockingRouter;
