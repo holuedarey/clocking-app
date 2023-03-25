@@ -102,28 +102,28 @@ class AuthController {
 * @param {express.Request} req Express request param
 * @param {express.Response} res Express response param
 */
-  async securityQuestion(req, res) {
-    const { email, question, password } = req.body;
+  async acceptTerms(req, res) {
+    const { terms } = req.body;
 
     try {
-      let user = await getUser(email);
-      if (!user || !await bcrypt.compareSync(password, user.password || '')) {
+      let user = await User.find({ _id: req.user._id });
+      if (!user) {
         return Response.send(res, codes.unAuthorized, {
-          error: `Invalid Email address or password.`,
+          error: `User Not Found`,
         });
       }
-      if (user.question == question) {
-        user.noOfTries = 0;
-        await user.save();
-      }
-      user = user.toObject();
-      delete user.password;
-      delete user.emailtoken;
+      user.acceptTerms = true;
+      await user.save();
+      const message = `<b>Hello ${user.firstname}</b><br>
+      <p>You Accept Terms and Conditon for work Policy on South North Group.</p>
+      <p>Thank You</p>
+      <p>Kindly ignore, if you didn't make the request</p><br>
+      <p>South North Group &copy; ${new Date().getFullYear()}</p>`;
 
-      const token = TokenUtil.sign(user);
-      res.cookie('authorization', token, { maxAge: 900000, httpOnly: true });
+      sendEmailSms({ emailRecipients: [userEmail], emailBody: message, emailSubject: 'Terms and Condtion Policy' });
+
       return Response.send(res, codes.success, {
-        data: { token, user },
+        data: user,
       });
     } catch (error) { return Response.handleError(res, error); }
   }

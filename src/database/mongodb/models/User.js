@@ -13,7 +13,8 @@ const userSchema = new Schema({
   emailtoken: String,
   roles: [String],
   position: String,
-  phoneNumber: String
+  phoneNumber: String,
+  acceptTerms: {type : Boolean, default: false}
 }, {
   timestamps: true,
 });
