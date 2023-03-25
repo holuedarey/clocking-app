@@ -112,15 +112,15 @@ class AuthController {
           error: `User Not Found`,
         });
       }
-      user.acceptTerms = true;
-      await user.save();
+
+      await User.updateOne({acceptTerms : true});
       const message = `<b>Hello ${user.firstname}</b><br>
       <p>You Accept Terms and Conditon for work Policy on South North Group.</p>
       <p>Thank You</p>
       <p>Kindly ignore, if you didn't make the request</p><br>
       <p>South North Group &copy; ${new Date().getFullYear()}</p>`;
 
-      sendEmailSms({ emailRecipients: [userEmail], emailBody: message, emailSubject: 'Terms and Condtion Policy' });
+      sendEmailSms({ emailRecipients: [user.email], emailBody: message, emailSubject: 'Terms and Condtion Policy' });
 
       return Response.send(res, codes.success, {
         data: user,
