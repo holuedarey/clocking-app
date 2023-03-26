@@ -25,6 +25,12 @@ class ClockingController {
       site_name, clocking_date_time, clocking_purpose, user_id
     };
 
+    if(req.user.acceptTerms == undefined || req.user.acceptTerms ==  false){
+      return Response.send(res, codes.unAuthorized, {
+        error: `Kindly log out and login to accept terms`,
+      });
+    }
+
     const cardy = new ClockingServices();
     try {
       const createCard = await cardy.createClocking(data);
