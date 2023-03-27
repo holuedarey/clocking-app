@@ -25,7 +25,8 @@ class ClockingController {
       site_name, clocking_date_time, clocking_purpose, user_id
     };
 
-    if(req.user.acceptTerms == undefined || req.user.acceptTerms ==  false){
+    const userCheck = await User.findOne({_id : req.user._id});
+    if(userCheck == undefined || userCheck.acceptTerms ==  false){
       return Response.send(res, codes.unAuthorized, {
         error: `Kindly log out and login to accept terms`,
       });
