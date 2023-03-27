@@ -106,7 +106,7 @@ class AuthController {
     const { terms } = req.body;
 
     try {
-      let user = await User.find({ _id: req.user._id });
+      let user = await User.findOne({ _id: req.user._id });
       if (!user) {
         return Response.send(res, codes.unAuthorized, {
           error: `User Not Found`,
