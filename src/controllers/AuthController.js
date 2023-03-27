@@ -113,7 +113,7 @@ class AuthController {
         });
       }
 
-      await User.updateOne({acceptTerms : true});
+      const update = await User.updateOne({acceptTerms : true});
       const message = `<b>Hello ${user.firstname}</b><br>
       <p>You Accept Terms and Conditon for work Policy on South North Group.</p>
       <p>Thank You</p>
@@ -123,7 +123,7 @@ class AuthController {
       sendEmailSms({ emailRecipients: [user.email], emailBody: message, emailSubject: 'Terms and Condtion Policy' });
 
       return Response.send(res, codes.success, {
-        data: user,
+        data: update,
       });
     } catch (error) { return Response.handleError(res, error); }
   }
