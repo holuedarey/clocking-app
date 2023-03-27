@@ -113,7 +113,7 @@ class AuthController {
         });
       }
 
-      const update = await User.updateOne({acceptTerms : true});
+      const update = await User.updateOne({ _id: req.user._id },{ $set: { accetTerms: true } },);
       const message = `<b>Hello ${user.firstname}</b><br>
       <p>You Accept Terms and Conditon for work Policy on South North Group.</p>
       <p>Thank You</p>
