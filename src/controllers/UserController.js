@@ -136,6 +136,39 @@ class UserController {
       });
     } catch (error) { return Response.handleError(res, error); }
   }
+  async setUserProfile(req, res) {
+    const { ni,
+      address,
+      dob,
+      UTR,
+      nok,
+      nokRelation,
+      nokPhone, } = req.body;
+    try {
+      const user = await User.findOne({ _id: req.user._id });
+      if (!user) {
+        return Response.send(res, codes.badRequest, {
+          error: 'User not found.',
+        });
+      }
+      user.isProfile = true;
+      user.profile = {
+        ni,
+        address,
+        dob,
+        UTR,
+        nok,
+        nokRelation,
+        nokPhone,
+      };
+      await user.save();
+      return Response.send(res, codes.success, {
+        data: {
+          message: 'User Profile updated successfully.',
+        },
+      });
+    } catch (error) { return Response.handleError(res, error); }
+  }
 }
 
 export default new UserController();

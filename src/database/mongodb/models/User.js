@@ -14,7 +14,17 @@ const userSchema = new Schema({
   roles: [String],
   position: String,
   phoneNumber: String,
-  acceptTerms: {type : Boolean, default: false}
+  acceptTerms: { type: Boolean, default: false },
+  profile: {
+    ni: String,
+    address: String,
+    dob: String,
+    UTR: String,
+    nok: String,
+    nokRelation: String,
+    nokPhone: String
+  },
+  isProfile: { type: Boolean, default: false },
 }, {
   timestamps: true,
 });
@@ -26,7 +36,7 @@ const userRoles = {
   admin: 'Admin',
   super_admin: 'Super Admin',
   freelancer: 'freelancer',
-  
+
 };
 
 const getUserPosVal = (pos) => {

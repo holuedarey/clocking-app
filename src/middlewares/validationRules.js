@@ -15,6 +15,17 @@ const setRoleRules = {
   },
 };
 
+const setProfileRules = {
+  ni: 'required',
+  address: 'required',
+  dob: 'required',
+  UTR: 'required',
+  nok: 'required',
+  nokRelation: 'required',
+  nokPhone: 'required'
+};
+
+
 const registerRules = [
   {
     field: 'firstname',
@@ -47,7 +58,7 @@ const registerRules = [
       'super admin',
       'customer',
       'freelancer',
-     
+
     ],
   },
 ];
@@ -153,5 +164,5 @@ const setLocationRules = [
 ];
 
 export {
-  socialRules, questionRules, registerRules, loginRules, resetPasswordRules, setEmailRules, changePasswordRules,  setRoleRules, clockingRules, setLocationRules
+  socialRules, questionRules, registerRules, loginRules, resetPasswordRules, setEmailRules, changePasswordRules, setRoleRules, clockingRules, setLocationRules, setProfileRules
 };
