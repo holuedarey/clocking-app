@@ -123,7 +123,7 @@ class AuthController {
       sendEmailSms({ emailRecipients: [user.email], emailBody: message, emailSubject: 'Terms and Condtion Policy' });
 
       return Response.send(res, codes.success, {
-        data: update,
+        data: user,
       });
     } catch (error) { return Response.handleError(res, error); }
   }
