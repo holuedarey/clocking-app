@@ -6,6 +6,7 @@ import Response from '../helpers/Response';
 import codes from '../helpers/statusCodes';
 import LocationServices from '../database/services/LocationServices'
 import { validateMongoID } from '../helpers/utils';
+import Location from '../database/mongodb/models/Location';
 
 class LocationController {
 
