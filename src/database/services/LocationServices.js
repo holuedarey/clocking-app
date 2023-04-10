@@ -64,7 +64,7 @@ class LocationService {
       { $skip: offset },
       { $limit: limit },
     ]);
-    const count = await await Clocking.aggregate([
+    const count = await await Location.aggregate([
       { $match: this.$match },
       {$group: {'_id': 0, 'count': { '$sum': 1  } } }
     ]);
