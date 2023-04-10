@@ -12,6 +12,8 @@ const  locationRouter = express.Router();
 
 locationRouter.route('/').get(LocationController.allLocation);
 locationRouter.route('/view/:_id').get(LocationController.viewOne);
+locationRouter.route('/delete/:id').delete(LocationController.deleteLocation);
+locationRouter.route('/delete/:id').patch(LocationController.updateLocation);
 locationRouter.route('/create').post(trimInputs, validateInputs(setLocationRules), LocationController.createLocation);
 locationRouter.route('/my_Location/').get(LocationController.myLocation);
 export default locationRouter;

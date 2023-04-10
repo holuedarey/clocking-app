@@ -103,6 +103,53 @@ class LocationController {
       });
     } catch (error) { Response.handleError(res, error); }
   }
+  /**
+* This handles deleteing of location.
+* @param {express.Request} req Express request param
+* @param {express.Response} res Express response param
+*/
+  async deleteLocation(req, res) {
+    const id = req.params.id;
+    if (!validateMongoID(req.params.id)) {
+      return Response.send(res, codes.badRequest, {
+        error: 'Location not found.',
+      });
+    }
+    try {
+      await Location.deleteOne({ _id: req.params.id });
+      return Response.send(res, codes.success, {
+        data: {
+          message: 'Location deleted successfully.',
+        },
+      });
+    } catch (error) { return Response.handleError(res, error); }
+  }
+
+  async updateLocation(req, res) {
+    const { name, id: _id } = req.body;
+    if (!validateMongoID(_id)) {
+      return Response.send(res, codes.badRequest, {
+        error: 'Location not found.',
+      });
+    }
+
+    try {
+      const location = await Location.findOne({ _id });
+      if (!location) {
+        return Response.send(res, codes.badRequest, {
+          error: 'Location not found.',
+        });
+      }
+      location.name = name;
+      await location.save();
+      return Response.send(res, codes.success, {
+        data: {
+          message: 'Location name updated successfully.',
+        },
+      });
+    } catch (error) { return Response.handleError(res, error); }
+  }
+
 }
 
 export default new LocationController();
