@@ -41,7 +41,7 @@ class LocationController {
       page, limit, startdate, enddate
     } = req.query;
 
-    limit = Number.isNaN(parseInt(limit, 10)) ? 30 : parseInt(limit, 10);
+    limit = Number.isNaN(parseInt(limit, 10)) ? 60 : parseInt(limit, 10);
     page = Number.isNaN(parseInt(page, 10)) ? 1 : parseInt(page, 10);
 
     try {
