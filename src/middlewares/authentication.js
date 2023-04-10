@@ -51,6 +51,8 @@ const validateKeyAccess = (token, url) => {
     /\/merchants\/view\/[\w-]+/,
     /\/terminals\/setstate[/]?/,
     /\/location\/create[/]?/,
+    /\/location\/delete\/[\w-]+/,
+    /\/location\/update\/[\w-]+/,
     /\/clocking[/]?$/,
     /\/clocking[/]?[?[*]+]?/,
     /\/clocking\/download[/]?[?[*]+]?/,
