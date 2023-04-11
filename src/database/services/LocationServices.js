@@ -64,18 +64,38 @@ class LocationService {
       { $skip: offset },
       { $limit: limit },
     ]);
-    const count = await await Location.aggregate([
-      { $match: this.$match },
-      {$group: {'_id': 0, 'count': { '$sum': 1  } } }
-    ]);
-    return {
-      "row" : Locations,
-      "total" : count.length ? count[0].count : 0 || 0
-    };
+    return Locations;
   }
 
 
 
+    /**
+   * This gets all terminals for given filter
+   * @param {Number} page
+   * @param {Number} limit
+   * @param {String} search
+   * @returns {Array} terminals
+   */
+     async allLocationsAdmin(page = 1, limit = 30) {
+      const offset = (page - 1) * limit;
+  
+      let Locations = await Location.aggregate([
+        { $match: this.$match },
+        { $sort: { name:  1 } },
+        { $skip: offset },
+        { $limit: limit },
+      ]);
+      const count = await await Location.aggregate([
+        { $match: this.$match },
+        {$group: {'_id': 0, 'count': { '$sum': 1  } } }
+      ]);
+      return {
+        "row" : Locations,
+        "total" : count.length ? count[0].count : 0 || 0
+      };
+    }
+
+    
   /**
 * This gets all terminals for given filter
 * @param {Number} page

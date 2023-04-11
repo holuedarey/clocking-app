@@ -32,12 +32,36 @@ class LocationController {
   }
 
 
+    /**
+  * This handles getting transaction history.
+  * @param {express.Request} req Express request param
+  * @param {express.Response} res Express response param
+  */
+     async allLocation(req, res) {
+
+      let {
+        page, limit, startdate, enddate
+      } = req.query;
+  
+      limit = Number.isNaN(parseInt(limit, 10)) ? 100 : parseInt(limit, 10);
+      page = Number.isNaN(parseInt(page, 10)) ? 1 : parseInt(page, 10);
+  
+      try {
+        const cards = new LocationServices();
+        const result = await cards.setDate(startdate, enddate).allLocations(page, limit);
+  
+        Response.send(res, codes.success, {
+          data: result,
+        });
+      } catch (error) { Response.handleError(res, error); }
+    }
+
   /**
   * This handles getting transaction history.
   * @param {express.Request} req Express request param
   * @param {express.Response} res Express response param
   */
-  async allLocation(req, res) {
+  async allLocationAdmin(req, res) {
 
     let {
       page, limit, startdate, enddate
@@ -48,7 +72,7 @@ class LocationController {
 
     try {
       const cards = new LocationServices();
-      const result = await cards.setDate(startdate, enddate).allLocations(page, limit);
+      const result = await cards.setDate(startdate, enddate).allLocationsAdmin(page, limit);
 
       Response.send(res, codes.success, {
         data: result,
