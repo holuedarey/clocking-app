@@ -1,4 +1,5 @@
 node_modules/
+.netlify
 py/
 files/**/*.xlsx
 yarn-error.log
